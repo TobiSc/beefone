@@ -1,0 +1,7 @@
+{
+  "name": "beefone",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
