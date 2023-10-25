@@ -24,11 +24,20 @@ import './theme/variables.css';
 import Sidebar from './components/Sidebar';
 import AppBar from './components/AppBar';
 import Scales from './pages/Home/Scales';
+import React, { createContext, useState } from 'react';
+import seedrandom from 'seedrandom';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
+const ScaleContext = createContext<Scale[]>([]);
+
+const dummyData = generateDummyData();
+
+const App: React.FC = () => {
+  const [scales, setScales] = useState<Scale[]>(dummyData);
+
+  return (<IonApp>
+    <ScaleContext.Provider value={scales}>
     <IonReactRouter>
       <Sidebar />
       <AppBar />
@@ -44,7 +53,36 @@ const App: React.FC = () => (
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
+    </ScaleContext.Provider>
   </IonApp>
-);
+)};
 
 export default App;
+
+export function useScales(): Scale[] {
+  return React.useContext(ScaleContext);
+}
+
+function generateDummyData() : Scale[] {
+  let scales: Scale[] = [];
+  let generator = seedrandom("seed");
+  for (let i = 0; i < 34; i++) {
+      let id = generator.int32().toString()
+      let scale: Scale = {
+          id,
+          name: `Waage ${i + 1}`,
+          position: ["Bermatingen", "Buggensegel", "Markdorf", "Meersburg"][i%4],
+          data: []
+      }
+      for (let j = 0; j < 168; j++) {
+          let scaleData: ScaleData = {
+              weight: generator() * 150,
+              humidity: generator() * 100,
+              timestamp: Date.now() - (1000 * 60 * 60 * j)
+          }
+          scale.data.push(scaleData);
+      }
+      scales.push(scale)
+  }
+  return scales;
+}
