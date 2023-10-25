@@ -13,7 +13,7 @@ const Home: React.FC = () => {
             <p>362 kg Massezunahme in den letzten 7 Tagen</p>
           </IonCardContent>
         </IonCard>
-        <IonCard button={true}>
+        <IonCard routerLink='/register-scale' button={true}>
           <IonCardHeader><IonCardTitle>Registrieren</IonCardTitle></IonCardHeader>
           <IonCardContent>Neue Waage registrieren</IonCardContent>
         </IonCard>

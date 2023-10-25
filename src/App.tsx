@@ -2,6 +2,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonPage, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home/Home';
+import "./App.css";
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -27,6 +28,7 @@ import Scales from './pages/Scales/Scales';
 import React, { createContext, useState } from 'react';
 import seedrandom from 'seedrandom';
 import Locations from './pages/Locations/Locations';
+import RegisterScale from './pages/RegisterScale/RegisterScale';
 
 setupIonicReact();
 
@@ -54,6 +56,9 @@ const App: React.FC = () => {
         </Route>
         <Route exact path="/locations">
           <Locations />
+        </Route>
+        <Route exact path="/register-scale">
+          <RegisterScale />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

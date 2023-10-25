@@ -1,0 +1,23 @@
+.vertical-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.horizontal-flex {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.defaultPadding {
+    padding: 1em;
+}
+
+.grow {
+    flex-grow: 2;
+}
+
+.hidden {
+    display: none;
+}
