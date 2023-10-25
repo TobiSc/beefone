@@ -23,6 +23,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Sidebar from './components/Sidebar';
 import AppBar from './components/AppBar';
+import Scales from './pages/Home/Scales';
 
 setupIonicReact();
 
@@ -37,6 +38,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
+        </Route>
+        <Route exact path="/scales">
+          <Scales />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
