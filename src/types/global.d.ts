@@ -6,7 +6,12 @@ declare interface ScaleData {
 
 declare interface Scale {
     name: string,
-    position: string,
+    location: string,
     id: string,
     data: ScaleData[]
   }
+
+declare interface ScaleLocation {
+  name: string,
+  scales: Scale[]
+}

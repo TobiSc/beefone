@@ -23,9 +23,10 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Sidebar from './components/Sidebar';
 import AppBar from './components/AppBar';
-import Scales from './pages/Home/Scales';
+import Scales from './pages/Scales/Scales';
 import React, { createContext, useState } from 'react';
 import seedrandom from 'seedrandom';
+import Locations from './pages/Locations/Locations';
 
 setupIonicReact();
 
@@ -51,6 +52,9 @@ const App: React.FC = () => {
         <Route exact path="/scales">
           <Scales />
         </Route>
+        <Route exact path="/locations">
+          <Locations />
+        </Route>
       </IonRouterOutlet>
     </IonReactRouter>
     </ScaleContext.Provider>
@@ -71,7 +75,7 @@ function generateDummyData() : Scale[] {
       let scale: Scale = {
           id,
           name: `Waage ${i + 1}`,
-          position: ["Bermatingen", "Buggensegel", "Markdorf", "Meersburg"][i%4],
+          location: ["Bermatingen", "Buggensegel", "Markdorf", "Meersburg"][i%4],
           data: []
       }
       for (let j = 0; j < 168; j++) {

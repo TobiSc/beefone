@@ -17,7 +17,7 @@ const Home: React.FC = () => {
           <IonCardHeader><IonCardTitle>Registrieren</IonCardTitle></IonCardHeader>
           <IonCardContent>Neue Waage registrieren</IonCardContent>
         </IonCard>
-        <IonCard button={true}>
+        <IonCard routerLink='/locations' button={true}>
           <IonCardHeader><IonCardTitle>Standorte</IonCardTitle></IonCardHeader>
           <IonCardContent>Alle Standorte anzeigen</IonCardContent>
         </IonCard>
