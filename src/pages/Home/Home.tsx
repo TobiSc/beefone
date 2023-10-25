@@ -1,6 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
-import './Home.css';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle} from '@ionic/react';
 import Page from '../../components/Page';
 
 const Home: React.FC = () => {

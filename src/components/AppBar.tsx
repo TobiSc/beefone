@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonMenu, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 
 const AppBar: React.FC = () => {
   return (

@@ -1,10 +1,9 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import { IonContent, IonPage } from '@ionic/react';
 import React from 'react';
 import AppBar from './AppBar';
 import Sidebar from './Sidebar';
+import './Page.css';
 
-type PageProps = {}
 type ChildrenProp = {
   children: React.ReactElement | React.ReactElement[]
 }
