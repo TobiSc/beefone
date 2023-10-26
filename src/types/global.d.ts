@@ -1,3 +1,5 @@
+import { ReactNode } from "react"
+
 declare interface ScaleData {
     weight: number | null,
     humidity: number | null,
@@ -14,4 +16,14 @@ declare interface Scale {
 declare interface ScaleLocation {
   name: string,
   scales: Scale[]
+}
+
+declare interface AuthProviderValue {
+  login: (email: string, password: string) => Promise<boolean>,
+  logout: () => Promise<Boolean>,
+  createAccount: (email: string, password: string) => Promise<boolean>,
+}
+
+declare interface AcceptChildren {
+  children: ReactNode
 }

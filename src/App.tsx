@@ -29,6 +29,7 @@ import React, { createContext, useState } from 'react';
 import seedrandom from 'seedrandom';
 import Locations from './pages/Locations/Locations';
 import RegisterScale from './pages/RegisterScale/RegisterScale';
+import AuthProvider from './context/AuthProvider';
 
 setupIonicReact();
 
@@ -38,8 +39,9 @@ const dummyData = generateDummyData();
 
 const App: React.FC = () => {
   const [scales, setScales] = useState<Scale[]>(dummyData);
-
+  
   return (<IonApp>
+    <AuthProvider>
     <ScaleContext.Provider value={scales}>
     <IonReactRouter>
       <Sidebar />
@@ -63,6 +65,7 @@ const App: React.FC = () => {
       </IonRouterOutlet>
     </IonReactRouter>
     </ScaleContext.Provider>
+    </AuthProvider>
   </IonApp>
 )};
 
