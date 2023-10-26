@@ -22,6 +22,7 @@ declare interface AuthProviderValue {
   login: (email: string, password: string) => Promise<boolean>,
   logout: () => Promise<Boolean>,
   createAccount: (email: string, password: string) => Promise<boolean>,
+  user: User | null,
 }
 
 declare interface AcceptChildren {

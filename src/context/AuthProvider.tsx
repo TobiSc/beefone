@@ -19,6 +19,7 @@ let AuthContext = React.createContext<AuthProviderValue>({
   login: (email: string, password: string) => Promise.resolve(false),
   logout: () => Promise.resolve(false),
   createAccount: (email: string, password: string) => Promise.resolve(false),
+  user: null
 });
 
 function AuthProvider({children} : AcceptChildren) {
@@ -59,7 +60,7 @@ function AuthProvider({children} : AcceptChildren) {
     }
 
   return (
-    <AuthContext.Provider value={{login, logout, createAccount}}>
+    <AuthContext.Provider value={{login, logout, createAccount, user}}>
         {children}
     </AuthContext.Provider>
   );
