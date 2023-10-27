@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonInput, useIonRouter} from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonInput, useIonRouter } from '@ionic/react';
 import Page from '../../components/Page';
 import { useAuth } from '../../context/AuthProvider';
 import { useState } from 'react';
@@ -28,8 +28,8 @@ const Login: React.FC = () => {
       <IonCard>
         <IonCardContent class="vertical-flex defaultPadding">
           <h2>Benutzerdaten</h2>
-          <IonInput type="email" value={email} onIonChange={(e)=>setEmail((e.target.value || "").toString())} fill="outline" labelPlacement="stacked" label="E-Mail" />
-          <IonInput type="password" value={password} onIonChange={(e)=>setPassword((e.target.value || "").toString())} fill="outline" labelPlacement="stacked" label="Passwort" />
+          <IonInput type="email" value={email} onIonChange={(e) => setEmail((e.target.value || "").toString())} fill="outline" labelPlacement="stacked" label="E-Mail" />
+          <IonInput type="password" value={password} onIonChange={(e) => setPassword((e.target.value || "").toString())} fill="outline" labelPlacement="stacked" label="Passwort" />
           <IonButton onClick={submitLogin}>Anmelden</IonButton>
           <IonButton onClick={submitRegister}>Registrieren</IonButton>
         </IonCardContent>

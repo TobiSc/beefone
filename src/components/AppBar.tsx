@@ -6,12 +6,12 @@ const AppBar: React.FC = () => {
   const router = useIonRouter();
   const { user } = useAuth();
 
-  const backTarget = useMemo(()=>{
+  const backTarget = useMemo(() => {
     if (!user) return "";
     if (router.routeInfo.lastPathname && router.routeInfo.pathname !== "/home") {
       return router.routeInfo.lastPathname;
     }
-    switch(router.routeInfo.pathname) {
+    switch (router.routeInfo.pathname) {
       case "/register-scale":
       case "/locations":
       case "/scales": return "/home";
@@ -19,8 +19,8 @@ const AppBar: React.FC = () => {
     }
   }, [router.routeInfo.pathname]);
 
-  const title = useMemo(()=>{
-    switch(router.routeInfo.pathname) {
+  const title = useMemo(() => {
+    switch (router.routeInfo.pathname) {
       case "/register-scale": return "Waage registrieren";
       case "/locations": return "Standorte";
       case "/scales": return "Alle Waagen";
@@ -31,15 +31,15 @@ const AppBar: React.FC = () => {
 
   return (
     <IonHeader>
-        <IonToolbar>
-          {
-            backTarget && (<IonButtons slot="start">
-              <IonBackButton defaultHref={backTarget}></IonBackButton>
-              </IonButtons>)
-          }
-          <IonTitle className="ion-text-center">{title}</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <IonToolbar>
+        {
+          backTarget && (<IonButtons slot="start">
+            <IonBackButton defaultHref={backTarget}></IonBackButton>
+          </IonButtons>)
+        }
+        <IonTitle className="ion-text-center">{title}</IonTitle>
+      </IonToolbar>
+    </IonHeader>
   );
 };
 

@@ -42,39 +42,40 @@ const dummyData = generateDummyData();
 
 const App: React.FC = () => {
   const [scales, setScales] = useState<Scale[]>(dummyData);
-  
+
   return (<IonApp>
     <AuthProvider>
-    <ScaleContext.Provider value={scales}>
-    <IonReactRouter>
-      <AuthStateWatcher />
-      <Sidebar />
-      <AppBar />
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route exact path="/scales">
-          <Scales />
-        </Route>
-        <Route exact path="/locations">
-          <Locations />
-        </Route>
-        <Route exact path="/register-scale">
-          <RegisterScale />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-    </ScaleContext.Provider>
+      <ScaleContext.Provider value={scales}>
+        <IonReactRouter>
+          <AuthStateWatcher />
+          <Sidebar />
+          <AppBar />
+          <IonRouterOutlet>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+            <Route exact path="/scales">
+              <Scales />
+            </Route>
+            <Route exact path="/locations">
+              <Locations />
+            </Route>
+            <Route exact path="/register-scale">
+              <RegisterScale />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </ScaleContext.Provider>
     </AuthProvider>
   </IonApp>
-)};
+  )
+};
 
 export default App;
 
@@ -82,26 +83,26 @@ export function useScales(): Scale[] {
   return React.useContext(ScaleContext);
 }
 
-function generateDummyData() : Scale[] {
+function generateDummyData(): Scale[] {
   let scales: Scale[] = [];
   let generator = seedrandom("seed");
   for (let i = 0; i < 34; i++) {
-      let id = generator.int32().toString()
-      let scale: Scale = {
-          id,
-          name: `Waage ${i + 1}`,
-          location: ["Bermatingen", "Buggensegel", "Markdorf", "Meersburg"][i%4],
-          data: []
+    let id = generator.int32().toString()
+    let scale: Scale = {
+      id,
+      name: `Waage ${i + 1}`,
+      location: ["Bermatingen", "Buggensegel", "Markdorf", "Meersburg"][i % 4],
+      data: []
+    }
+    for (let j = 0; j < 168; j++) {
+      let scaleData: ScaleData = {
+        weight: generator() * 150,
+        humidity: generator() * 100,
+        timestamp: Date.now() - (1000 * 60 * 60 * j)
       }
-      for (let j = 0; j < 168; j++) {
-          let scaleData: ScaleData = {
-              weight: generator() * 150,
-              humidity: generator() * 100,
-              timestamp: Date.now() - (1000 * 60 * 60 * j)
-          }
-          scale.data.push(scaleData);
-      }
-      scales.push(scale)
+      scale.data.push(scaleData);
+    }
+    scales.push(scale)
   }
   return scales;
 }

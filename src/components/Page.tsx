@@ -7,11 +7,11 @@ type ChildrenProp = {
   children: React.ReactElement | React.ReactElement[]
 }
 
-const Page: React.FC<ChildrenProp> = ({children}) => {
+const Page: React.FC<ChildrenProp> = ({ children }) => {
   return (
     <IonPage>
-        <AppBar />
-        <Sidebar />
+      <AppBar />
+      <Sidebar />
       <IonContent>
         {children}
       </IonContent>

@@ -3,13 +3,13 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHe
 const Sidebar: React.FC = () => {
   return (
     <IonMenu contentId="main-content">
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Menu Content</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent className="ion-padding">This is the menu content.</IonContent>
-      </IonMenu>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Menu Content</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent className="ion-padding">This is the menu content.</IonContent>
+    </IonMenu>
   );
 };
 
