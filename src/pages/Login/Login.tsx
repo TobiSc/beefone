@@ -1,25 +1,33 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonInput, useIonRouter } from '@ionic/react';
 import Page from '../../components/Page';
-import { useAuth } from '../../context/AuthProvider';
 import { useState } from 'react';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@firebase/auth';
+import { auth } from '../../context/Firebase';
 
 const Login: React.FC = () => {
-  const { login, createAccount } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useIonRouter();
 
   const submitLogin = async () => {
     if (email && password) {
-      let success = await login(email, password);
-      if (success) router.push("/home");
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        router.push("/home")
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
   const submitRegister = async () => {
     if (email && password) {
-      let success = await createAccount(email, password);
-      if (success) router.push("/home");
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        router.push("/home")
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 

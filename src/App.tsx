@@ -29,7 +29,6 @@ import React, { createContext, useState } from 'react';
 import seedrandom from 'seedrandom';
 import Locations from './pages/Locations/Locations';
 import RegisterScale from './pages/RegisterScale/RegisterScale';
-import AuthProvider from './context/AuthProvider';
 import { Scale, ScaleData } from './types/global';
 import Login from './pages/Login/Login';
 import AuthStateWatcher from './components/AuthStateWatcher';
@@ -44,35 +43,33 @@ const App: React.FC = () => {
   const [scales, setScales] = useState<Scale[]>(dummyData);
 
   return (<IonApp>
-    <AuthProvider>
-      <ScaleContext.Provider value={scales}>
-        <IonReactRouter>
-          <AuthStateWatcher />
-          <Sidebar />
-          <AppBar />
-          <IonRouterOutlet>
-            <Route exact path="/home">
-              <Home />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
-            <Route exact path="/scales">
-              <Scales />
-            </Route>
-            <Route exact path="/locations">
-              <Locations />
-            </Route>
-            <Route exact path="/register-scale">
-              <RegisterScale />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-          </IonRouterOutlet>
-        </IonReactRouter>
-      </ScaleContext.Provider>
-    </AuthProvider>
+    <ScaleContext.Provider value={scales}>
+      <IonReactRouter>
+        <AuthStateWatcher />
+        <Sidebar />
+        <AppBar />
+        <IonRouterOutlet>
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+          <Route exact path="/scales">
+            <Scales />
+          </Route>
+          <Route exact path="/locations">
+            <Locations />
+          </Route>
+          <Route exact path="/register-scale">
+            <RegisterScale />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </ScaleContext.Provider>
   </IonApp>
   )
 };

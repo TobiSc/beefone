@@ -1,13 +1,11 @@
 import { IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar, useIonRouter } from '@ionic/react';
 import { useMemo } from 'react';
-import { useAuth } from '../context/AuthProvider';
 
 const AppBar: React.FC = () => {
   const router = useIonRouter();
-  const { user } = useAuth();
 
   const backTarget = useMemo(() => {
-    if (!user) return "";
+    if (router.routeInfo.pathname === "/login") return "";
     if (router.routeInfo.lastPathname && router.routeInfo.pathname !== "/home") {
       return router.routeInfo.lastPathname;
     }
