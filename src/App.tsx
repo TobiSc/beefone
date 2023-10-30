@@ -35,6 +35,7 @@ import AuthStateWatcher from './components/AuthStateWatcher';
 import { doc, setDoc } from '@firebase/firestore';
 import { firestore } from './context/Firebase';
 import { QueryDocumentSnapshot, collection, getDocs, query } from "@firebase/firestore";
+import ScaleDetail from './pages/ScaleDetail/ScaleDetail';
 
 setupIonicReact();
 
@@ -75,6 +76,9 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route path="/scale-detail/:id">
+            <ScaleDetail />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

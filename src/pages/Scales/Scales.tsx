@@ -4,7 +4,6 @@ import { useScales } from "../../App";
 import ScaleItem from "./ScaleItem";
 
 const Scales: React.FC = () => {
-  //TODO: Scales Context doch nutzen
   const scales = useScales();
   return (
     <Page>
