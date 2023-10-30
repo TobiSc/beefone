@@ -10,7 +10,6 @@ import _ from "lodash";
 const ScaleItem: React.FC<{ scale: QueryDocumentSnapshot<Scale, Scale> }> = ({ scale }) => {
     const [scaleData, setScaleData] = useState<QueryDocumentSnapshot<ScaleData, ScaleData>[]>([]);
     const mostRecent = useMemo(() => {
-        console.log(scaleData.length)
         if (scaleData.length > 0) {
             return _.last(scaleData)?.data();
         }
