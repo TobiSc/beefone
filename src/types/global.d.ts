@@ -9,8 +9,7 @@ declare interface ScaleData {
 declare interface Scale {
   name: string,
   location: string,
-  id: string,
-  data: ScaleData[]
+  serial: string,
 }
 
 declare interface ScaleLocation {

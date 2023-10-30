@@ -25,22 +25,31 @@ import './theme/variables.css';
 import Sidebar from './components/Sidebar';
 import AppBar from './components/AppBar';
 import Scales from './pages/Scales/Scales';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import seedrandom from 'seedrandom';
 import Locations from './pages/Locations/Locations';
 import RegisterScale from './pages/RegisterScale/RegisterScale';
 import { Scale, ScaleData } from './types/global';
 import Login from './pages/Login/Login';
 import AuthStateWatcher from './components/AuthStateWatcher';
+import { doc, setDoc } from '@firebase/firestore';
+import { firestore } from './context/Firebase';
+import { QueryDocumentSnapshot, collection, getDocs, query } from "@firebase/firestore";
 
 setupIonicReact();
 
-const ScaleContext = createContext<Scale[]>([]);
-
-const dummyData = generateDummyData();
+const ScaleContext = createContext<QueryDocumentSnapshot<Scale, Scale>[]>([]);
 
 const App: React.FC = () => {
-  const [scales, setScales] = useState<Scale[]>(dummyData);
+  const [scales, setScales] = useState<QueryDocumentSnapshot<Scale, Scale>[]>([])
+  useEffect(() => {
+    let scalesQuery = query(
+      collection(firestore, "scales").withConverter({ toFirestore: (data: Scale) => data, fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as Scale })
+    );
+    getDocs(scalesQuery).then(querySnapshot => {
+      setScales(querySnapshot.docs)
+    })
+  }, [])
 
   return (<IonApp>
     <ScaleContext.Provider value={scales}>
@@ -76,30 +85,6 @@ const App: React.FC = () => {
 
 export default App;
 
-export function useScales(): Scale[] {
+export function useScales(): QueryDocumentSnapshot<Scale, Scale>[] {
   return React.useContext(ScaleContext);
-}
-
-function generateDummyData(): Scale[] {
-  let scales: Scale[] = [];
-  let generator = seedrandom("seed");
-  for (let i = 0; i < 34; i++) {
-    let id = generator.int32().toString()
-    let scale: Scale = {
-      id,
-      name: `Waage ${i + 1}`,
-      location: ["Bermatingen", "Buggensegel", "Markdorf", "Meersburg"][i % 4],
-      data: []
-    }
-    for (let j = 0; j < 168; j++) {
-      let scaleData: ScaleData = {
-        weight: generator() * 150,
-        humidity: generator() * 100,
-        timestamp: Date.now() - (1000 * 60 * 60 * j)
-      }
-      scale.data.push(scaleData);
-    }
-    scales.push(scale)
-  }
-  return scales;
 }
