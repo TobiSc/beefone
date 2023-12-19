@@ -30,7 +30,7 @@ import seedrandom from 'seedrandom';
 import Locations from './pages/Locations/Locations';
 import RegisterScale from './pages/RegisterScale/RegisterScale';
 import { Scale, ScaleData } from './types/global';
-import Login from './pages/Login/Login';
+//import Login from './pages/Login/Login';
 import AuthStateWatcher from './components/AuthStateWatcher';
 import { doc, setDoc } from '@firebase/firestore';
 import { firestore } from './context/Firebase';
@@ -45,7 +45,7 @@ const App: React.FC = () => {
   const [scales, setScales] = useState<QueryDocumentSnapshot<Scale, Scale>[]>([])
   useEffect(() => {
     let scalesQuery = query(
-      collection(firestore, "scales").withConverter({ toFirestore: (data: Scale) => data, fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as Scale })
+      collection(firestore, "scale").withConverter({ toFirestore: (data: Scale) => data, fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as Scale })
     );
     getDocs(scalesQuery).then(querySnapshot => {
       setScales(querySnapshot.docs)
@@ -55,7 +55,6 @@ const App: React.FC = () => {
   return (<IonApp>
     <ScaleContext.Provider value={scales}>
       <IonReactRouter>
-        <AuthStateWatcher />
         <Sidebar />
         <AppBar />
         <IonRouterOutlet>
@@ -74,9 +73,9 @@ const App: React.FC = () => {
           <Route exact path="/register-scale">
             <RegisterScale />
           </Route>
-          <Route exact path="/login">
+          {/* <Route exact path="/login">
             <Login />
-          </Route>
+          </Route> */}
           <Route path="/scale-detail/:id">
             <ScaleDetail />
           </Route>

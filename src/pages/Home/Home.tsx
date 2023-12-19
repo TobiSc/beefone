@@ -7,6 +7,7 @@ const Home: React.FC = () => {
       <IonCard>
         <IonCardHeader><IonCardTitle>Bericht</IonCardTitle></IonCardHeader>
         <IonCardContent>
+          <p>Folgende Werte sind Beispiele und zeigen Fantasiedaten an</p>
           <p>34 registrierte Waagen</p>
           <p>2 auffällige Messergebnisse</p>
           <p>1 Waage mit geringer Restakkukapazität</p>

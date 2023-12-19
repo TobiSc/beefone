@@ -1,7 +1,7 @@
 import { IonItem, IonLabel, IonList, useIonRouter } from "@ionic/react";
 import Page from "../../components/Page"
 import { useScales } from "../../App";
-import { QueryDocumentSnapshot, collection, getDocs, query } from "firebase/firestore";
+import { QueryDocumentSnapshot, collection, getDocs, query, where } from "firebase/firestore";
 import { Scale, ScaleData } from "../../types/global";
 import { useEffect, useMemo, useState } from "react";
 import { firestore } from "../../context/Firebase";
@@ -17,10 +17,12 @@ const ScaleItem: React.FC<{ scale: QueryDocumentSnapshot<Scale, Scale> }> = ({ s
     }, [scaleData])
     useEffect(() => {
         let scalesQuery = query(
-            collection(firestore, `scales/${scale.data().serial}/data`).withConverter({ toFirestore: (data: ScaleData) => data, fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as ScaleData })
+            collection(firestore, `scaleData`).withConverter({ toFirestore: (data: ScaleData) => data, fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as ScaleData }),
+            where("serial", "==", scale.data().serial)
         );
         getDocs(scalesQuery).then(querySnapshot => {
             setScaleData(querySnapshot.docs)
+            console.log(querySnapshot.docs)
         })
     }, [])
     return (
