@@ -2,10 +2,19 @@ import { LatLngTuple } from "leaflet"
 import { ReactNode } from "react"
 
 declare interface ScaleData {
-  weight: number | null,
-  humidity: number | null,
-  timestamp: number,
-  serial: string
+  Clock: number,
+  Date: string,
+  Errors: number,
+  Scale1: number,
+  Scale2: number,
+  Scale3: number,
+  Scale4: number,
+  Seq: number,
+  Serial: number,
+  Temp: number,
+  Time: string,
+  TMType: string,
+  unixTime: number
 }
 
 declare interface Scale {

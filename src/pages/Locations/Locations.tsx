@@ -7,6 +7,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import { LatLngTuple } from "leaflet";
 import 'leaflet/dist/leaflet.css';
 import { Scale } from "../../types/global";
+import ScalePreviewData from "../../components/ScalePreviewData";
 
 const Locations: React.FC = () => {
     const scales = useScales();
@@ -36,7 +37,8 @@ const Locations: React.FC = () => {
                         let location = scale.data().location;
                         return <Marker key={index} position={[location.latitude, location.longitude]}>
                             <Popup>
-                                Seriennummer: {scale.data().serial.toString()}
+                                Nr. {scale.data().serial.toString()}<br />
+                                <ScalePreviewData scale={scale.data()} />
                             </Popup>
                         </Marker>
                     })
@@ -47,7 +49,8 @@ const Locations: React.FC = () => {
                     scales.map((scale, index) => {
                         console.log(scale.data().location)
                         return (<IonItem button={true} key={index} onClick={() => setScaleAsCenter(scale.data())}>
-                            {scale.data().serial}
+                            <IonLabel>Nr. {scale.data().serial.toString()}<br />
+                                <ScalePreviewData scale={scale.data()} /></IonLabel>
                         </IonItem>)
                     })
                 }

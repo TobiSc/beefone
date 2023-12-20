@@ -35,7 +35,19 @@ async function upsertRecords(records) {
         let timestamp = new Date(record[0] + ":" + record[1]).valueOf();  //unix timestamp
         let scaleDataRef = doc(firestore, "scaleData/" + timestamp.toString())
         await setDoc(scaleDataRef, {
-            Date: record[0], Time: record[1], TMType: record[2], Serial: record[3], Clock: record[4], Seq: record[5], Errors: record[6], Scale1: record[7], Scale2: record[8], Scale3: record[9], Scale4: record[10], Temp: record[11]
+            Date: record[0],
+            Time: record[1],
+            unixTime: timestamp,
+            TMType: record[2],
+            Serial: parseInt(record[3]),
+            Clock: parseInt(record[4]),
+            Seq: parseInt(record[5]),
+            Errors: parseInt(record[6]),
+            Scale1: parseInt(record[7]),
+            Scale2: parseInt(record[8]),
+            Scale3: parseInt(record[9]),
+            Scale4: parseInt(record[10]),
+            Temp: parseInt(record[11])
         }, { merge: true }).catch((e) => console.error(e));
         console.log(index + "/" + records.length)
     }
