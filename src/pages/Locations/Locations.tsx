@@ -8,6 +8,7 @@ import { LatLngTuple } from "leaflet";
 import 'leaflet/dist/leaflet.css';
 import { Scale } from "../../types/global";
 import ScalePreviewData from "../../components/ScalePreviewData";
+import ScaleDetailButton from "../../components/ScaleDetailButton";
 
 const Locations: React.FC = () => {
     const scales = useScales();
@@ -47,10 +48,11 @@ const Locations: React.FC = () => {
             <IonList>
                 {
                     scales.map((scale, index) => {
-                        console.log(scale.data().location)
                         return (<IonItem button={true} key={index} onClick={() => setScaleAsCenter(scale.data())}>
                             <IonLabel>Nr. {scale.data().serial.toString()}<br />
-                                <ScalePreviewData scale={scale.data()} /></IonLabel>
+                                <ScalePreviewData scale={scale.data()} />
+                                <ScaleDetailButton scale={scale.data()} />
+                            </IonLabel>
                         </IonItem>)
                     })
                 }

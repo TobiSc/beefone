@@ -1,4 +1,4 @@
-import { IonContent, IonPage } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonPage } from '@ionic/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import AppBar from './AppBar';
 import Sidebar from './Sidebar';
@@ -7,6 +7,8 @@ import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { firestore } from '../context/Firebase';
 import { get } from 'lodash';
 import { DisplayDate, DisplayDateTime } from '../lib/ValueFormatter';
+import { statsChart } from 'ionicons/icons';
+import { GetScaleWeight } from '../lib/Calculations';
 
 export type ScalePreviewDataProps = { scale: Scale }
 
@@ -21,14 +23,12 @@ const ScalePreviewData: React.FC<ScalePreviewDataProps> = ({ scale }) => {
         }).catch(e => console.error(e))
     }, [])
     const weight = useMemo(() => {
-        let weight1 = get(data, "Scale1", 0);
-        let weight2 = get(data, "Scale2", 0);
-        let weight3 = get(data, "Scale3", 0);
-        let weight4 = get(data, "Scale4", 0);
-        return weight1 + weight2 + weight3 + weight4;
+        return GetScaleWeight(data)
     }, [data])
     return (
-        <span>Gewicht: {weight} <span style={{ color: "lightgray" }}>{data.unixTime ? DisplayDateTime(new Date(data.unixTime).toISOString()) : ""}</span></span>
+        <div>
+            <span>Gewicht: {weight} <span style={{ color: "lightgray" }}>{data.unixTime ? DisplayDateTime(new Date(data.unixTime).toISOString()) : ""}</span></span>
+        </div>
     );
 };
 
