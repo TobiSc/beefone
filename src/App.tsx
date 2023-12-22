@@ -45,10 +45,11 @@ const App: React.FC = () => {
   const [scales, setScales] = useState<QueryDocumentSnapshot<Scale, Scale>[]>([])
   useEffect(() => {
     let scalesQuery = query(
-      collection(firestore, "scale").withConverter({ toFirestore: (data: Scale) => data, fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as Scale })
+      collection(firestore, "scales").withConverter({ toFirestore: (data: Scale) => data, fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as Scale })
     );
     getDocs(scalesQuery).then(querySnapshot => {
       setScales(querySnapshot.docs)
+      console.log({ docs: querySnapshot.docs })
     })
   }, [])
 
