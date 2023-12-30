@@ -1,54 +1,67 @@
-import { IonButton, IonItem, IonLabel, IonList } from "@ionic/react";
+import { IonItem, IonLabel, IonList } from "@ionic/react";
 import Page from "../../components/Page"
 import { useScales } from "../../App";
 import _ from "lodash";
 import { useEffect, useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
-import { LatLngTuple } from "leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
 import { Scale } from "../../types/global";
 import ScalePreviewData from "../../components/ScalePreviewData";
 import ScaleDetailButton from "../../components/ScaleDetailButton";
+import MapLogic from "./MapLogic";
+import ScaleMarker from "./ScaleMarker";
+
+/** erforderlich, damit die Icons auf Android funktionieren, siehe https://stackoverflow.com/questions/49441600/react-leaflet-marker-files-not-found */
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -41]
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
+/** */
 
 const Locations: React.FC = () => {
     const scales = useScales();
-    const [center, setCenter] = useState([47.73950307269184, 9.364103370779638] as LatLngTuple)
+    const [selectedScale, setSelectedScale] = useState<null | Scale>(null)
     const [render, setRender] = useState(Date.now())
 
-    useEffect(() => {
-        if (scales.length > 0) {
-            setScaleAsCenter(scales[0].data())
+    function toggleSelectedScale(scale: Scale) {
+        if (selectedScale?.serial === scale.serial) {
+            setSelectedScale(null);
         }
-        //sehr unschön. Muss untersucht werden, wie es ohne rerender klappt.
+        else {
+            setSelectedScale(scale);
+        }
+    }
+
+    useEffect(() => {
         setTimeout(() => setRender(Date.now()), 50);
     }, [])
 
-    function setScaleAsCenter(scale: Scale): void {
-        setCenter([scale.location.latitude, scale.location.longitude] as LatLngTuple);
-    }
     return (
         <Page>
-            <MapContainer key={render} style={{ height: "400px", width: "100%" }} center={center} zoom={13} scrollWheelZoom={false}>
+            <MapContainer key={render} style={{ height: "400px", width: "100%" }} center={[47.7395, 9.3641]} zoom={13} scrollWheelZoom={false}>
+                <MapLogic selectedScale={selectedScale} />
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {
-                    scales.map((scale, index) => {
-                        let location = scale.data().location;
-                        return <Marker key={index} position={[location.latitude, location.longitude]}>
-                            <Popup>
-                                Nr. {scale.data().serial.toString()}<br />
-                                <ScalePreviewData scale={scale.data()} />
-                            </Popup>
-                        </Marker>
-                    })
+                    scales.map((scale, index) => <ScaleMarker key={index} scale={scale.data()} selectedScale={selectedScale} />)
                 }
             </MapContainer>
             <IonList>
                 {
                     scales.map((scale, index) => {
-                        return (<IonItem button={true} key={index} onClick={() => setScaleAsCenter(scale.data())}>
+                        return (<IonItem color={selectedScale?.serial === scale.data().serial ? "dark" : "light"} button={true} key={index} onClick={() => toggleSelectedScale(scale.data())}>
                             <IonLabel>Nr. {scale.data().serial.toString()}<br />
                                 <ScalePreviewData scale={scale.data()} />
                                 <ScaleDetailButton scale={scale.data()} />
