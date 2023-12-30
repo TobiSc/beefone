@@ -21,7 +21,7 @@ const ScalePreviewData: React.FC<ScalePreviewDataProps> = ({ scale }) => {
                 setData(querySnapshot.docs[0].data() as ScaleData)
             }
         }).catch(e => console.error(e))
-    }, [])
+    }, [scale])
     const weight = useMemo(() => {
         return GetScaleWeight(data)
     }, [data])
